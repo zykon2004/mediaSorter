@@ -60,3 +60,36 @@ def test_personal_media_folder_is_not_recognized_as_downloaded_media(
     assert not media_file.is_downloaded_media_directory(
         downloads_directory / PERSONAL_MEDIA_DIRECTORY
     )
+
+
+@pytest.mark.parametrize(
+    argnames=["file", "expected_result"],
+    argvalues=[
+        pytest.param(
+            Path(
+                f"The.Mandalorian.S02E02.Chapter.10.{MEDIA_INDICATOR}.WEB-DL.DDP.5.1.Atmos.H.264-PHOENiX{MEDIA_SUFFIX}"
+            ),
+            True,
+            id="A file downloaded file containing s02e02 pattern",
+        ),
+        pytest.param(
+            Path(
+                f"The.Ministry.of.Ungentlemanly.Warfare.2024.{MEDIA_INDICATOR}.AMZN.WEBRip.1400MB-GalaxyRG{MEDIA_SUFFIX}"
+            ),
+            False,
+            id="Downloaded media, but not a series",
+        ),
+        pytest.param(
+            Path("1.jpeg"),
+            False,
+            id="Not a media file",
+        ),
+        pytest.param(
+            Path(f"Our Wedding 2019{MEDIA_SUFFIX}"),
+            False,
+            id="Not a downloaded file",
+        ),
+    ],
+)
+def test_is_series_file(file: Path, expected_result: bool) -> None:
+    assert media_file.is_series_file(file) == expected_result

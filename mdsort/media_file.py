@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import settings
+from mdsort import formatter
 
 
 def is_downloaded_media_file(file: Path) -> bool:
@@ -27,3 +28,14 @@ def is_downloaded_media_directory(directory: Path) -> bool:
             if _file.is_file()
         )
     )
+
+
+def is_series_file(file: Path) -> bool:
+    if not is_downloaded_media_file(file):
+        return False
+    try:
+        formatter.extract_season_and_episode_from_series_filename(file.name)
+    except formatter.SeasonEpisodePatternNotFound:
+        return False
+    else:
+        return True
