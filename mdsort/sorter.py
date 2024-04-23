@@ -1,12 +1,13 @@
 from pathlib import Path
+from typing import Optional
 
-import formatter
-from media_file import (
+from mdsort.formatter import format_series_title_and_file_name
+from mdsort.media_file import (
     is_downloaded_media_directory,
     is_downloaded_media_file,
     is_media_file,
 )
-from parent_directory import ParentDirectory
+from mdsort.parent_directory import ParentDirectory
 
 
 class Sorter:
@@ -14,7 +15,7 @@ class Sorter:
         self,
         series_parent_directories: list[ParentDirectory],
         downloads_directory: Path,
-        movies_directory: Path,
+        movies_directory: Optional[Path],
     ):
         self.downloads_directory = downloads_directory
         self.movies_directory = movies_directory
@@ -39,7 +40,7 @@ class Sorter:
 
     def assign_files_to_parents(self, parent_directory: ParentDirectory) -> None:
         for file in self.media_files:
-            if formatter.format_series_title_and_file_name(file.name).startswith(
+            if format_series_title_and_file_name(file.name).startswith(
                 parent_directory.comparable_name
             ):
                 parent_directory.newly_assigned_files.append(file)
@@ -47,7 +48,7 @@ class Sorter:
 
     def assign_directories_to_parents(self, parent_directory: ParentDirectory) -> None:
         for directory in self.media_directories:
-            if formatter.format_series_title_and_file_name(directory.name).startswith(
+            if format_series_title_and_file_name(directory.name).startswith(
                 parent_directory.comparable_name
             ):
                 for file in directory.iterdir():

@@ -5,11 +5,11 @@ import pytest
 
 
 from .consts import DOWNLOADED_MEDIA_FILE, DOWNLOADED_MEDIA_DIRECTORY
-from parent_directory import ParentDirectory
-from sorter import Sorter
+from mdsort.parent_directory import ParentDirectory
+from mdsort.sorter import Sorter
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def sorter(
     downloads_directory: Path,
     series_parent_directories: list[ParentDirectory],
