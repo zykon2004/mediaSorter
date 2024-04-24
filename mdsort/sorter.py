@@ -1,6 +1,11 @@
 from pathlib import Path
 
-import media_file
+import formatter
+from media_file import (
+    is_downloaded_media_directory,
+    is_downloaded_media_file,
+    is_media_file,
+)
 from parent_directory import ParentDirectory
 
 
@@ -17,10 +22,31 @@ class Sorter:
         self.media_files: list[Path] = [
             file
             for file in self.downloads_directory.iterdir()
-            if media_file.is_downloaded_media_file(file)
+            if is_downloaded_media_file(file)
         ]
         self.media_directories: list[Path] = [
             directory
             for directory in self.downloads_directory.iterdir()
-            if media_file.is_downloaded_media_directory(directory)
+            if is_downloaded_media_directory(directory)
         ]
+
+    def assign_all_media_to_parents(self):
+        for parent_directory in self.series_parent_directories:
+            self.assign_files_to_parents(parent_directory)
+            self.assign_directories_to_parents(parent_directory)
+
+    def assign_files_to_parents(self, parent_directory: ParentDirectory) -> None:
+        for file in self.media_files:
+            if formatter.format_series_title_and_file_name(file.name).startswith(
+                parent_directory.comparable_name
+            ):
+                parent_directory.newly_assigned_files.append(file)
+
+    def assign_directories_to_parents(self, parent_directory: ParentDirectory) -> None:
+        for directory in self.media_directories:
+            if formatter.format_series_title_and_file_name(directory.name).startswith(
+                parent_directory.comparable_name
+            ):
+                for file in directory.iterdir():
+                    if is_media_file(file.name):
+                        parent_directory.newly_assigned_files.append(file)
