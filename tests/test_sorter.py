@@ -4,7 +4,7 @@ from typing import Optional
 import pytest
 
 
-from .consts import DOWNLOADED_MEDIA_FILE
+from .consts import DOWNLOADED_MEDIA_FILE, DOWNLOADED_MEDIA_DIRECTORY
 from parent_directory import ParentDirectory
 from sorter import Sorter
 
@@ -24,3 +24,6 @@ def sorter(
 
 def test_sorter_init(sorter: Sorter, downloads_directory: Path):
     assert sorter.media_files == [downloads_directory / DOWNLOADED_MEDIA_FILE]
+    assert sorter.media_directories == [
+        downloads_directory / DOWNLOADED_MEDIA_DIRECTORY
+    ]
