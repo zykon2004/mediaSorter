@@ -5,7 +5,7 @@ from typing import Generator
 
 import pytest
 
-import media_file
+from mdsort import media_file
 import settings
 
 MEDIA_SUFFIX = settings.MEDIA_FILES_SUFFIXES[0]

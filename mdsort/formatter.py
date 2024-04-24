@@ -32,7 +32,7 @@ def remove_the_prefix(
     if formatted_title.startswith(f"The{seperator}"):
         prefix_to_remove = f"The{seperator}"
     elif formatted_title.startswith(f"the{seperator}"):
-        prefix_to_remove = f"theP{seperator}"
+        prefix_to_remove = f"the{seperator}"
     else:
         prefix_to_remove = ""
     formatted_title = formatted_title.removeprefix(prefix_to_remove)

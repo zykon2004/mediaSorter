@@ -5,7 +5,7 @@ from typing import ContextManager
 import pytest
 
 import settings
-import torrent_client
+from mdsort import torrent_client
 
 
 @pytest.mark.parametrize(

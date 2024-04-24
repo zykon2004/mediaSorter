@@ -2,16 +2,8 @@ from dataclasses import dataclass, field
 from functools import cached_property
 from pathlib import Path
 
-import formatter
+import mdsort.formatter as formatter
 import settings
-
-
-def find_parent_series_directories(series_root_directory: Path) -> set[str]:
-    return {
-        directory.name
-        for directory in series_root_directory.iterdir()
-        if ParentDirectory.is_parent_directory(directory)
-    }
 
 
 @dataclass
@@ -31,3 +23,13 @@ class ParentDirectory:
         return self.path / formatter.format_series_filename_before_rename(
             assigned_file.name, self.path.name
         )
+
+
+def find_parent_series_directories(
+    series_root_directory: Path,
+) -> list[ParentDirectory]:
+    return [
+        ParentDirectory(path=directory)
+        for directory in series_root_directory.iterdir()
+        if ParentDirectory.is_parent_directory(directory)
+    ]

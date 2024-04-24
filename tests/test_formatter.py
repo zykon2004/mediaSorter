@@ -3,7 +3,7 @@ from typing import ContextManager
 
 import pytest
 
-import formatter
+from mdsort import formatter
 
 
 @pytest.mark.parametrize(
