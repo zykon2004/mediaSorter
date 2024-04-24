@@ -3,8 +3,8 @@ from pathlib import Path
 import settings
 
 
-def is_downloaded_media_file(filename: str) -> bool:
-    return is_media_file(filename) and is_downloaded(filename)
+def is_downloaded_media_file(file: Path) -> bool:
+    return is_media_file(file.name) and is_downloaded(file.name)
 
 
 def is_downloaded(filename: str) -> bool:

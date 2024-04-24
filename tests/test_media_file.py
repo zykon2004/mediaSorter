@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pytest
 
+from mdsort import media_file
 from .consts import (
     MEDIA_INDICATOR,
     MEDIA_SUFFIX,
@@ -9,7 +10,6 @@ from .consts import (
     DOWNLOADED_APP_DIRECTORY,
     DOWNLOADED_MEDIA_DIRECTORY,
 )
-from mdsort import media_file
 
 
 @pytest.mark.parametrize(
@@ -35,7 +35,7 @@ from mdsort import media_file
 def test_format_before_rename_raises_exceptions(
     filename: str, expected_result: bool
 ) -> None:
-    assert media_file.is_downloaded_media_file(filename) == expected_result
+    assert media_file.is_downloaded_media_file(Path(filename)) == expected_result
 
 
 def test_find_downloaded_file_in_directory(
