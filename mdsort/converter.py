@@ -11,13 +11,19 @@ def convert_series_title(title: str):
     converted_title = remove_the_prefix(converted_title)
     converted_title = removed_year_and_imdb_suffix(converted_title)
     converted_title = remove_forbidden_characters(converted_title)
-    return converted_title.strip()
+    converted_title = replace_spaces_with_dots(converted_title)
+    return converted_title
+
+
+def replace_spaces_with_dots(converted_title):
+    converted_title = converted_title.replace(" ", ".")
+    return converted_title
 
 
 def remove_forbidden_characters(converted_title: str):
     for char in FORBIDDEN_CHARACTERS:
         converted_title = converted_title.replace(char, "")
-    return converted_title
+    return converted_title.strip()
 
 
 def remove_the_prefix(converted_title: str):
@@ -33,4 +39,4 @@ def removed_year_and_imdb_suffix(converted_title: str):
     with suppress(ValueError):
         if 1900 <= int(title_suffix) <= datetime.datetime.now().year:
             converted_title = converted_title.removesuffix(title_suffix)
-    return converted_title
+    return converted_title.strip()

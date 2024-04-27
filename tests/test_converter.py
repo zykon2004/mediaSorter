@@ -8,7 +8,7 @@ import converter
     argvalues=[
         pytest.param(
             "Catch 22",
-            "catch 22",
+            "catch.22",
             id="number is not removed since it is not a year",
         ),
         pytest.param(
@@ -18,12 +18,12 @@ import converter
         ),
         pytest.param(
             "Catch 22 tt5056196",
-            "catch 22",
+            "catch.22",
             id="removed imdb identifier",
         ),
         pytest.param(
             "Avatar: The Last Airbender tt9018736",
-            "avatar the last airbender",
+            "avatar.the.last.airbender",
             id="removed imdb identifier and :",
         ),
     ],
