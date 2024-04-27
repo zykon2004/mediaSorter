@@ -6,8 +6,6 @@ from contextlib import suppress
 FORBIDDEN_CHARACTERS = "; :".split()
 UNIFIED_SEPERATOR = "."
 
-test = ""
-
 
 def convert_series_title(title: str):
     converted_title = title.lower()
