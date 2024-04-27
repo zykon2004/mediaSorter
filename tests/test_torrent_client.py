@@ -28,6 +28,6 @@ import torrent_client
         ),
     ],
 )
-def test_is_torrent_process_running(process_name: str, context: ContextManager):
+def test_is_torrent_process_running(process_name: str, context: ContextManager) -> None:
     with context:
         torrent_client.is_running(process_name)
