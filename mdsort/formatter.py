@@ -7,7 +7,7 @@ FORBIDDEN_CHARACTERS = "; :".split()
 UNIFIED_SEPERATOR = "."
 
 
-def format_series_title(title: str):
+def format_series_title_and_file_name(title: str) -> str:
     formatted_title = title.lower()
     formatted_title = create_unified_seperator(formatted_title)
     formatted_title = remove_the_prefix(formatted_title)
