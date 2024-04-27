@@ -4,39 +4,41 @@ from contextlib import suppress
 
 
 FORBIDDEN_CHARACTERS = "; :".split()
+UNIFIED_SEPERATOR = "."
 
 
 def convert_series_title(title: str):
     converted_title = title.lower()
+    converted_title = create_unified_seperator(converted_title)
     converted_title = remove_the_prefix(converted_title)
     converted_title = removed_year_and_imdb_suffix(converted_title)
     converted_title = remove_forbidden_characters(converted_title)
-    converted_title = replace_spaces_with_dots(converted_title)
     return converted_title
 
 
-def replace_spaces_with_dots(converted_title):
-    converted_title = converted_title.replace(" ", ".")
+def create_unified_seperator(converted_title):
+    converted_title = converted_title.replace(" ", UNIFIED_SEPERATOR)
+    converted_title = converted_title.replace("_", UNIFIED_SEPERATOR)
     return converted_title
 
 
 def remove_forbidden_characters(converted_title: str):
     for char in FORBIDDEN_CHARACTERS:
         converted_title = converted_title.replace(char, "")
-    return converted_title.strip()
+    return converted_title.strip(UNIFIED_SEPERATOR)
 
 
 def remove_the_prefix(converted_title: str):
-    if converted_title.startswith("the "):
-        converted_title = converted_title.removeprefix("the ")
+    if converted_title.startswith(f"the{UNIFIED_SEPERATOR}"):
+        converted_title = converted_title.removeprefix(f"the{UNIFIED_SEPERATOR}")
     return converted_title
 
 
 def removed_year_and_imdb_suffix(converted_title: str):
-    title_suffix = converted_title.rsplit(" ", maxsplit=1)[1]
+    title_suffix = converted_title.rsplit(UNIFIED_SEPERATOR, maxsplit=1)[1]
     if re.match(pattern=r"^tt\d+", string=title_suffix):
         converted_title = converted_title.removesuffix(title_suffix)
     with suppress(ValueError):
         if 1900 <= int(title_suffix) <= datetime.datetime.now().year:
             converted_title = converted_title.removesuffix(title_suffix)
-    return converted_title.strip()
+    return converted_title.strip(UNIFIED_SEPERATOR)

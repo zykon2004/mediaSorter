@@ -17,9 +17,9 @@ import converter
             id="Removed `The`, lower, removed Year",
         ),
         pytest.param(
-            "Catch 22 tt5056196",
+            "Catch 22_tt5056196",
             "catch.22",
-            id="removed imdb identifier",
+            id="removed imdb identifier and unified seperator",
         ),
         pytest.param(
             "Avatar: The Last Airbender tt9018736",
