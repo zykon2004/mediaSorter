@@ -1,10 +1,10 @@
 import pytest
 
-import converter
+import formatter
 
 
 @pytest.mark.parametrize(
-    argnames=["title", "converted_title"],
+    argnames=["title", "formatted_title"],
     argvalues=[
         pytest.param(
             "Catch 22",
@@ -28,5 +28,5 @@ import converter
         ),
     ],
 )
-def test_rename_series_title(title: str, converted_title: str):
-    assert converter.convert_series_title(title) == converted_title
+def test_rename_series_title(title: str, formatted_title: str):
+    assert formatter.format_series_title(title) == formatted_title
