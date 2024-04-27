@@ -46,7 +46,7 @@ def test_format_series_title_and_filename(title: str, formatted_title: str):
     argnames=["title", "filename", "expected_result"],
     argvalues=[
         pytest.param(
-            "S.W.A.T.2017.S07E10.1080p_HDTV_;;x265-MiNX[TGx]",
+            "The Office tt0386676",
             "The.Mandalorian.S02E02.Chapter.10.1080p.DSNP.WEB-DL.DDP.5.1.Atmos.H.264-PHOENiX.mkv",
             False,
             id="mismatched title and filename",
