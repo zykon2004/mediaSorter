@@ -1,3 +1,6 @@
+from contextlib import nullcontext
+from typing import ContextManager
+
 import pytest
 
 import formatter
@@ -68,16 +71,50 @@ def test_e2e_format_series_title_and_filename(
 
 
 @pytest.mark.parametrize(
-    argnames=["filename", "expected_filename"],
+    argnames=["filename", "title", "expected_filename"],
     argvalues=[
         pytest.param(
             "The.Mandalorian.S02E02.Chapter.10.1080p.DSNP.WEB-DL.DDP.5.1.Atmos.H.264-PHOENiX.mkv",
+            "The Mandalorian 2018",
             "Mandalorian - 02x02.mkv",
             id="Normal case. prefix deleted, capitalized, episode and season extracted",
+        ),
+        pytest.param(
+            "S.W.A.T.2017.S07E10.1080p_HDTV_;;x265-MiNX[TGx].avi",
+            "S.W.A.T 2017",
+            "S.W.A.T - 07x10.avi",
+            id="avi file, dots in name",
         ),
     ],
 )
 def test_format_series_filename_before_rename(
-    filename: str, expected_filename: str
+    filename: str, title: str, expected_filename: str
 ) -> None:
-    assert formatter.format_series_filename_before_rename(filename) == expected_filename
+    assert (
+        formatter.format_series_filename_before_rename(filename, title)
+        == expected_filename
+    )
+
+
+@pytest.mark.parametrize(
+    argnames=["filename", "title", "context"],
+    argvalues=[
+        pytest.param(
+            "The.Mandalorian.S02E02.Chapter.10.1080p.DSNP.WEB-DL.DDP.5.1.Atmos.H.264-PHOENiX.mkv",
+            "The Mandalorian 2018",
+            nullcontext(),
+            id="No exception is raised. season, episode format found",
+        ),
+        pytest.param(
+            "S.W.A.T 2017",
+            "S.W.A.T 2017",
+            pytest.raises(formatter.SeasonEpisodePatternNotFound),
+            id="Did not found S01E01 pattern",
+        ),
+    ],
+)
+def test_format_before_rename_raises_exceptions(
+    filename: str, title: str, context: ContextManager
+) -> None:
+    with context:
+        formatter.format_series_filename_before_rename(filename, title)
