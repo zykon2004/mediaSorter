@@ -3,10 +3,9 @@
   <component name="Black">
     <option name="cmdArguments" value="format" />
     <option name="enabledOnReformat" value="true" />
-    <option name="enabledOnSave" value="true" />
     <option name="executionMode" value="BINARY" />
     <option name="pathToExecutable" value="$USER_HOME$/.local/bin/ruff" />
-    <option name="sdkName" value="Python 3.11" />
+    <option name="sdkName" value="Poetry (mediaSorter)" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Poetry (mediaSorter)" project-jdk-type="Python SDK" />
 </project>
