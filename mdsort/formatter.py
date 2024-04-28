@@ -16,25 +16,25 @@ def format_series_title_and_file_name(title: str) -> str:
     return formatted_title
 
 
-def create_unified_seperator(formatted_title):
+def create_unified_seperator(formatted_title: str) -> str:
     formatted_title = formatted_title.replace(" ", UNIFIED_SEPERATOR)
     formatted_title = formatted_title.replace("_", UNIFIED_SEPERATOR)
     return formatted_title
 
 
-def remove_forbidden_characters(formatted_title: str):
+def remove_forbidden_characters(formatted_title: str) -> str:
     for char in FORBIDDEN_CHARACTERS:
         formatted_title = formatted_title.replace(char, "")
     return formatted_title.strip(UNIFIED_SEPERATOR)
 
 
-def remove_the_prefix(formatted_title: str):
+def remove_the_prefix(formatted_title: str) -> str:
     if formatted_title.startswith(f"the{UNIFIED_SEPERATOR}"):
         formatted_title = formatted_title.removeprefix(f"the{UNIFIED_SEPERATOR}")
     return formatted_title
 
 
-def removed_year_and_imdb_suffix(formatted_title: str):
+def removed_year_and_imdb_suffix(formatted_title: str) -> str:
     title_suffix = formatted_title.rsplit(UNIFIED_SEPERATOR, maxsplit=1)[1]
     if re.match(pattern=r"^tt\d+", string=title_suffix):
         formatted_title = formatted_title.removesuffix(title_suffix)
@@ -44,4 +44,5 @@ def removed_year_and_imdb_suffix(formatted_title: str):
     return formatted_title.strip(UNIFIED_SEPERATOR)
 
 
-def format_series_filename_before_rename(filename: str): ...
+def format_series_filename_before_rename(filename: str) -> str:
+    return ""

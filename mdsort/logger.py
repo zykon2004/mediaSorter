@@ -2,6 +2,8 @@ import logging
 import logging.config
 import sys
 from pathlib import Path
+from types import TracebackType
+from typing import Type, Any, Optional
 
 
 def setup_logger(filename: str = "media_sorter") -> None:
@@ -51,7 +53,11 @@ def setup_logger(filename: str = "media_sorter") -> None:
     sys.excepthook = log_uncaught_exceptions
 
 
-def log_uncaught_exceptions(exc_type, exc_value, exc_traceback):
+def log_uncaught_exceptions(
+    exc_type: Type[BaseException],
+    exc_value: BaseException,
+    exc_traceback: Optional[TracebackType],
+) -> Any:
     if issubclass(exc_type, KeyboardInterrupt):
         sys.__excepthook__(exc_type, exc_value, exc_traceback)
         return

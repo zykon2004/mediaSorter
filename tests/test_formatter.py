@@ -38,7 +38,7 @@ import formatter
         ),
     ],
 )
-def test_format_series_title_and_filename(title: str, formatted_title: str):
+def test_format_series_title_and_filename(title: str, formatted_title: str) -> None:
     assert formatter.format_series_title_and_file_name(title) == formatted_title
 
 
@@ -61,7 +61,7 @@ def test_format_series_title_and_filename(title: str, formatted_title: str):
 )
 def test_e2e_format_series_title_and_filename(
     title: str, filename: str, expected_result: bool
-):
+) -> None:
     formatted_title = formatter.format_series_title_and_file_name(title)
     formatted_filename = formatter.format_series_title_and_file_name(filename)
     assert formatted_filename.startswith(formatted_title) == expected_result
@@ -77,5 +77,7 @@ def test_e2e_format_series_title_and_filename(
         ),
     ],
 )
-def test_format_series_filename_before_rename(filename: str, expected_filename: str):
+def test_format_series_filename_before_rename(
+    filename: str, expected_filename: str
+) -> None:
     assert formatter.format_series_filename_before_rename(filename) == expected_filename
