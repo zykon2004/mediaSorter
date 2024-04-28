@@ -65,3 +65,17 @@ def test_e2e_format_series_title_and_filename(
     formatted_title = formatter.format_series_title_and_file_name(title)
     formatted_filename = formatter.format_series_title_and_file_name(filename)
     assert formatted_filename.startswith(formatted_title) == expected_result
+
+
+@pytest.mark.parametrize(
+    argnames=["filename", "expected_filename"],
+    argvalues=[
+        pytest.param(
+            "The.Mandalorian.S02E02.Chapter.10.1080p.DSNP.WEB-DL.DDP.5.1.Atmos.H.264-PHOENiX.mkv",
+            "Mandalorian - 02x02.mkv",
+            id="Normal case. prefix deleted, capitalized, episode and season extracted",
+        ),
+    ],
+)
+def test_format_series_filename_before_rename(filename: str, expected_filename: str):
+    assert formatter.format_series_filename_before_rename(filename) == expected_filename

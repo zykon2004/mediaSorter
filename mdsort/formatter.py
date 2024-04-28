@@ -42,3 +42,6 @@ def removed_year_and_imdb_suffix(formatted_title: str):
         if 1900 <= int(title_suffix) <= datetime.datetime.now().year:
             formatted_title = formatted_title.removesuffix(title_suffix)
     return formatted_title.strip(UNIFIED_SEPERATOR)
+
+
+def format_series_filename_before_rename(filename: str): ...
