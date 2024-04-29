@@ -68,9 +68,19 @@ def test_find_downloaded_file_in_directory(downloads_directory: Path) -> None:
     assert media_file.is_downloaded_media_directory(
         downloads_directory / DOWNLOADED_MEDIA_DIRECTORY
     )
-    assert not media_file.is_downloaded_media_directory(
-        downloads_directory / PERSONAL_MEDIA_DIRECTORY
-    )
+
+
+def test_downloaded_app_directory_is_not_recognized_as_downloaded_media_directory(
+    downloads_directory: Path,
+):
     assert not media_file.is_downloaded_media_directory(
         downloads_directory / DOWNLOADED_APP_DIRECTORY
+    )
+
+
+def test_personal_media_folder_is_not_recognized_as_downloaded_media(
+    downloads_directory: Path,
+):
+    assert not media_file.is_downloaded_media_directory(
+        downloads_directory / PERSONAL_MEDIA_DIRECTORY
     )
