@@ -21,3 +21,11 @@ def is_downloaded_media_directory(directory: Path) -> bool:
     return is_downloaded(directory.name) and any(
         is_media_file(_file.name) for _file in directory.iterdir() if _file.is_file()
     )
+
+
+def find_parent_series_directories(series_root_directory: Path) -> set[str]:
+    return {
+        directory.name
+        for directory in series_root_directory.iterdir()
+        if Path(directory / settings.PARENT_IDENTIFIER).exists()
+    }
