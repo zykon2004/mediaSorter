@@ -10,13 +10,9 @@ import settings
 
 MEDIA_SUFFIX = settings.MEDIA_FILES_SUFFIXES[0]
 MEDIA_INDICATOR = settings.DOWNLOADED_MEDIA_INDICATORS[0]
-PARENT_IDENTIFIER = settings.PARENT_IDENTIFIER
 DOWNLOADED_MEDIA_DIRECTORY = f"The.Mandalorian.S02E02.Chapter.10.{MEDIA_INDICATOR}.WEB-DL.DDP.5.1.Atmos.H.264-PHOENiX"
 PERSONAL_MEDIA_DIRECTORY = "Wedding Videos"
 DOWNLOADED_APP_DIRECTORY = "Photoshop CS2"
-PARENT_SERIES_DIRECTORY_1 = "Mandalorian 2018"
-PARENT_SERIES_DIRECTORY_2 = "Avatar: The Last Airbender 2024 tt9018736"
-SERIES_DIRECTORY = "Catch 22"
 
 
 @pytest.mark.parametrize(
@@ -43,31 +39,6 @@ def test_format_before_rename_raises_exceptions(
     filename: str, expected_result: bool
 ) -> None:
     assert media_file.is_downloaded_media_file(filename) == expected_result
-
-
-@pytest.fixture(scope="module")
-def series_root_directory() -> Generator:
-    _series_root_directory = Path(tempfile.mkdtemp())
-    for parent_series_directory in (
-        PARENT_SERIES_DIRECTORY_1,
-        PARENT_SERIES_DIRECTORY_2,
-    ):
-        _directory = _series_root_directory / parent_series_directory
-        Path.mkdir(_directory, exist_ok=True)
-        Path.touch(_directory / PARENT_IDENTIFIER)
-
-    _non_parent_series_directory = _series_root_directory / SERIES_DIRECTORY
-    Path.mkdir(_non_parent_series_directory, exist_ok=True)
-
-    yield _series_root_directory
-    shutil.rmtree(_series_root_directory)
-
-
-def test_find_all_parent_series_directories(series_root_directory: Path) -> None:
-    assert media_file.find_parent_series_directories(series_root_directory) == {
-        PARENT_SERIES_DIRECTORY_1,
-        PARENT_SERIES_DIRECTORY_2,
-    }
 
 
 @pytest.fixture(scope="module")
