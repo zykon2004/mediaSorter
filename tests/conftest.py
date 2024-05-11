@@ -7,7 +7,6 @@ import pytest
 
 from .consts import (
     PERSONAL_MEDIA_DIRECTORY,
-    MEDIA_INDICATOR,
     SERIES_DIRECTORY,
     DOWNLOADED_MEDIA_DIRECTORY,
     MEDIA_SUFFIX,
@@ -15,8 +14,9 @@ from .consts import (
     PARENT_IDENTIFIER,
     PARENT_SERIES_DIRECTORY_STR_1,
     PARENT_SERIES_DIRECTORY_STR_2,
+    DOWNLOADED_MEDIA_FILE,
 )
-from mdsort.parent_directory import ParentDirectory
+from mdsort.parent_directory import ParentDirectory, find_parent_series_directories
 
 
 @pytest.fixture(scope="session")
@@ -77,11 +77,22 @@ def downloads_directory() -> Generator:
 
     wedding_videos_directory = Path(_downloads_directory / PERSONAL_MEDIA_DIRECTORY)
     Path.mkdir(wedding_videos_directory, exist_ok=True)
-    Path.touch(wedding_videos_directory / f"1{globals}")
+    Path.touch(wedding_videos_directory / f"1{MEDIA_SUFFIX}")
 
-    Path.touch(
-        _downloads_directory
-        / f"S.W.A.T.2017.S07E10.{MEDIA_INDICATOR}.HDTV.x265-MiNX[TGx]{MEDIA_SUFFIX}"
-    )
+    Path.touch(_downloads_directory / DOWNLOADED_MEDIA_FILE)
     yield _downloads_directory
     shutil.rmtree(_downloads_directory)
+
+
+@pytest.fixture(scope="session")
+def series_parent_directories(
+    series_root_directory: Path,
+) -> list[ParentDirectory]:
+    return find_parent_series_directories(series_root_directory)
+
+
+@pytest.fixture(scope="session")
+def movies_directory() -> Generator:
+    _movies_directory = Path(tempfile.mkdtemp())
+    yield _movies_directory
+    shutil.rmtree(_movies_directory)

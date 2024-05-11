@@ -18,6 +18,12 @@ def is_media_file(filename: str) -> bool:
 
 
 def is_downloaded_media_directory(directory: Path) -> bool:
-    return is_downloaded(directory.name) and any(
-        is_media_file(_file.name) for _file in directory.iterdir() if _file.is_file()
+    return (
+        directory.is_dir()
+        and is_downloaded(directory.name)
+        and any(
+            is_media_file(_file.name)
+            for _file in directory.iterdir()
+            if _file.is_file()
+        )
     )
