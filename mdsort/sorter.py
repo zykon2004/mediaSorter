@@ -29,6 +29,8 @@ class Sorter:
             for directory in self.downloads_directory.iterdir()
             if is_downloaded_media_directory(directory)
         ]
+        self.assigned_files: list[Path] = []
+        self.assigned_directories: list[Path] = []
 
     def assign_all_media_to_parents(self):
         for parent_directory in self.series_parent_directories:
@@ -41,6 +43,7 @@ class Sorter:
                 parent_directory.comparable_name
             ):
                 parent_directory.newly_assigned_files.append(file)
+                self.assigned_files.append(file)
 
     def assign_directories_to_parents(self, parent_directory: ParentDirectory) -> None:
         for directory in self.media_directories:
@@ -50,3 +53,18 @@ class Sorter:
                 for file in directory.iterdir():
                     if is_media_file(file.name):
                         parent_directory.newly_assigned_files.append(file)
+                self.assigned_directories.append(directory)
+
+    def is_all_downloaded_media_assigned(self) -> bool:
+        return (
+            len(self.unassigned_media_files) == 0
+            and len(self.unassigned_media_directories) == 0
+        )
+
+    @property
+    def unassigned_media_directories(self) -> set[Path]:
+        return set(self.media_directories) - set(self.assigned_directories)
+
+    @property
+    def unassigned_media_files(self) -> set[Path]:
+        return set(self.media_files) - set(self.assigned_files)
