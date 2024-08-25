@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Optional
 
 from mdsort.formatter import format_series_title_and_file_name
 from mdsort.media_file import (
@@ -15,7 +14,7 @@ class Sorter:
         self,
         series_parent_directories: list[ParentDirectory],
         downloads_directory: Path,
-        movies_directory: Optional[Path],
+        movies_directory: Path | None,
     ):
         self.downloads_directory = downloads_directory
         self.movies_directory = movies_directory
