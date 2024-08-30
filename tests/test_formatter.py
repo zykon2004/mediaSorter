@@ -1,5 +1,4 @@
-from contextlib import nullcontext
-from typing import ContextManager
+from contextlib import AbstractContextManager, nullcontext
 
 import pytest
 
@@ -22,7 +21,7 @@ from mdsort import formatter
         pytest.param(
             "Catch 22_tt5056196",
             "catch.22",
-            id="removed imdb identifier and unified seperator",
+            id="removed imdb identifier and unified separator",
         ),
         pytest.param(
             "Avatar: The Last Airbender tt9018736",
@@ -114,7 +113,7 @@ def test_format_series_filename_before_rename(
     ],
 )
 def test_format_before_rename_raises_exceptions(
-    filename: str, title: str, context: ContextManager
+    filename: str, title: str, context: AbstractContextManager
 ) -> None:
     with context:
         formatter.format_series_filename_before_rename(filename, title)

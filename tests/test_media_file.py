@@ -3,12 +3,13 @@ from pathlib import Path
 import pytest
 
 from mdsort import media_file
+
 from .consts import (
+    DOWNLOADED_APP_DIRECTORY,
+    DOWNLOADED_MEDIA_DIRECTORY,
     MEDIA_INDICATOR,
     MEDIA_SUFFIX,
     PERSONAL_MEDIA_DIRECTORY,
-    DOWNLOADED_APP_DIRECTORY,
-    DOWNLOADED_MEDIA_DIRECTORY,
 )
 
 

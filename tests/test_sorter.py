@@ -1,19 +1,18 @@
 from pathlib import Path
-from typing import Optional
 
 import pytest
 
-
-from .consts import DOWNLOADED_MEDIA_FILE, DOWNLOADED_MEDIA_DIRECTORY
 from mdsort.parent_directory import ParentDirectory
 from mdsort.sorter import Sorter
+
+from .consts import DOWNLOADED_MEDIA_DIRECTORY, DOWNLOADED_MEDIA_FILE
 
 
 @pytest.fixture(scope="function")
 def sorter(
     downloads_directory: Path,
     series_parent_directories: list[ParentDirectory],
-    movies_directory: Optional[Path],
+    movies_directory: Path | None,
 ) -> Sorter:
     return Sorter(
         downloads_directory=downloads_directory,

@@ -1,22 +1,23 @@
 import shutil
 import tempfile
+from collections.abc import Generator
 from pathlib import Path
-from typing import Generator
 
 import pytest
 
+from mdsort.parent_directory import ParentDirectory, find_parent_series_directories
+
 from .consts import (
-    PERSONAL_MEDIA_DIRECTORY,
-    SERIES_DIRECTORY,
-    DOWNLOADED_MEDIA_DIRECTORY,
-    MEDIA_SUFFIX,
     DOWNLOADED_APP_DIRECTORY,
+    DOWNLOADED_MEDIA_DIRECTORY,
+    DOWNLOADED_MEDIA_FILE,
+    MEDIA_SUFFIX,
     PARENT_IDENTIFIER,
     PARENT_SERIES_DIRECTORY_STR_1,
     PARENT_SERIES_DIRECTORY_STR_2,
-    DOWNLOADED_MEDIA_FILE,
+    PERSONAL_MEDIA_DIRECTORY,
+    SERIES_DIRECTORY,
 )
-from mdsort.parent_directory import ParentDirectory, find_parent_series_directories
 
 
 @pytest.fixture(scope="session")

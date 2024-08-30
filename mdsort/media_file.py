@@ -10,7 +10,7 @@ def is_downloaded_media_file(file: Path) -> bool:
 
 def is_downloaded(filename: str) -> bool:
     return any(
-        (indicator in filename for indicator in settings.DOWNLOADED_MEDIA_INDICATORS)
+        indicator in filename for indicator in settings.DOWNLOADED_MEDIA_INDICATORS
     )
 
 

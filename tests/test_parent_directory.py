@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from mdsort.parent_directory import find_parent_series_directories, ParentDirectory
+from mdsort.parent_directory import ParentDirectory, find_parent_series_directories
 
 
 def test_find_all_parent_series_directories(

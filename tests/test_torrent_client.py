@@ -1,6 +1,5 @@
 import platform
-from contextlib import nullcontext
-from typing import ContextManager
+from contextlib import AbstractContextManager, nullcontext
 
 import pytest
 
@@ -28,6 +27,8 @@ from mdsort import torrent_client
         ),
     ],
 )
-def test_is_torrent_process_running(process_name: str, context: ContextManager) -> None:
+def test_is_torrent_process_running(
+    process_name: str, context: AbstractContextManager
+) -> None:
     with context:
         torrent_client.is_running(process_name)
