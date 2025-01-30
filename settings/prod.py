@@ -1,7 +1,0 @@
-TORRENT_CLIENT = "qbittorrent"
-FORBIDDEN_CHARACTERS = "; :".split()
-UNIFIED_SEPARATOR = "."
-DEFAULT_TITLE_SEPARATOR = " "
-MEDIA_FILES_SUFFIXES = ".mkv .avi .mpeg .mpg".split()
-DOWNLOADED_MEDIA_INDICATORS = "720p 1080p 2160p".split()
-PARENT_IDENTIFIER = ".parent"

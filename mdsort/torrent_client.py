@@ -1,11 +1,11 @@
 import logging
 
 import psutil
-
 import settings
 
 
-class TorrentClientIsRunningException(Exception): ...
+class TorrentClientIsRunningException(Exception):
+    pass
 
 
 def is_running(process_name: str = settings.TORRENT_CLIENT) -> bool:
