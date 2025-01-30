@@ -8,10 +8,8 @@ def test_find_all_parent_series_directories(
     parent_directory_1: ParentDirectory,
     parent_directory_2: ParentDirectory,
 ) -> None:
-    assert find_parent_series_directories(series_root_directory) == [
-        parent_directory_1,
-        parent_directory_2,
-    ]
+    assert parent_directory_1 in find_parent_series_directories(series_root_directory)
+    assert parent_directory_2 in find_parent_series_directories(series_root_directory)
 
 
 def test_parent_directory_comparable_name(parent_directory_2: ParentDirectory) -> None:

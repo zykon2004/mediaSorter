@@ -2,9 +2,7 @@ import platform
 from contextlib import AbstractContextManager, nullcontext
 
 import pytest
-
-import settings
-from mdsort import torrent_client
+from mdsort import settings, torrent_client
 
 
 @pytest.mark.parametrize(

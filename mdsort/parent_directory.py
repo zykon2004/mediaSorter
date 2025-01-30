@@ -2,8 +2,7 @@ from dataclasses import dataclass, field
 from functools import cached_property
 from pathlib import Path
 
-import settings
-
+from mdsort import settings
 from mdsort.formatter import (
     format_series_filename_before_rename,
     format_series_title_and_file_name,

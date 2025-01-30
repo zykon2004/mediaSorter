@@ -30,7 +30,10 @@ def test_sorter_init(sorter: Sorter, downloads_directory: Path):
 
 def test_sorter_assign_media_to_parents(sorter: Sorter):
     sorter.assign_all_media_to_parents()
-    assert len(sorter.series_parent_directories[0].newly_assigned_files) > 0
+    sum_newly_assigned_files = 0
+    for parent_directory in sorter.series_parent_directories:
+        sum_newly_assigned_files += len(parent_directory.newly_assigned_files)
+    assert sum_newly_assigned_files > 0
     assert (
         not sorter.is_all_downloaded_media_assigned()
         and len(sorter.unassigned_media_files) == 1

@@ -1,4 +1,4 @@
-import settings
+from mdsort import settings
 
 MEDIA_SUFFIX = settings.MEDIA_FILES_SUFFIXES[0]
 MEDIA_INDICATOR = settings.DOWNLOADED_MEDIA_INDICATORS[0]

@@ -1,7 +1,8 @@
 import logging
 
 import psutil
-import settings
+
+from mdsort import settings
 
 
 class TorrentClientIsRunningException(Exception):

@@ -2,7 +2,7 @@ import datetime
 import re
 from contextlib import suppress
 
-import settings
+from mdsort import settings
 
 FIRST_TV_SHOW_RELEASE_YEAR = 1934
 

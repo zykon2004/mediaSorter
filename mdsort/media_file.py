@@ -1,8 +1,6 @@
 from pathlib import Path
 
-import settings
-
-from mdsort import formatter
+from mdsort import formatter, settings
 
 
 def is_downloaded_media_file(file: Path) -> bool:
@@ -24,7 +22,9 @@ def is_downloaded_media_directory(directory: Path) -> bool:
         directory.is_dir()
         and is_downloaded(directory.name)
         and any(
-            is_media_file(_file.name) for _file in directory.iterdir() if _file.is_file()
+            is_media_file(_file.name)
+            for _file in directory.iterdir()
+            if _file.is_file()
         )
     )
 
