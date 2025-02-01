@@ -4,7 +4,8 @@ from collections.abc import Generator
 from pathlib import Path
 
 import pytest
-
+from consts import A_MOVIE_DIRECTORY, MOVIES_DIRECTORY
+from logger import setup_logger
 from mdsort.parent_directory import ParentDirectory, find_parent_series_directories
 
 from .consts import (
@@ -69,18 +70,29 @@ def parent_directory_2(
 def downloads_directory() -> Generator:
     _downloads_directory = Path(tempfile.mkdtemp())
 
+    # Counts as a series directory
     mandalorian_directory = _downloads_directory / DOWNLOADED_MEDIA_DIRECTORY
     Path.mkdir(mandalorian_directory, exist_ok=True)
     Path.touch(mandalorian_directory / f"{DOWNLOADED_MEDIA_DIRECTORY}{MEDIA_SUFFIX}")
     Path.touch(mandalorian_directory / "readme.txt")
 
+    # Does not count as a media directory
     Path.mkdir(_downloads_directory / DOWNLOADED_APP_DIRECTORY, exist_ok=True)
 
+    # Does not count as a media directory
     wedding_videos_directory = Path(_downloads_directory / PERSONAL_MEDIA_DIRECTORY)
     Path.mkdir(wedding_videos_directory, exist_ok=True)
     Path.touch(wedding_videos_directory / f"1{MEDIA_SUFFIX}")
 
+    # Counts as a movie directory
+    a_movie_directory = Path(_downloads_directory) / A_MOVIE_DIRECTORY
+    Path.mkdir(a_movie_directory, exist_ok=True)
+    Path.touch(a_movie_directory / f"{A_MOVIE_DIRECTORY}{MEDIA_SUFFIX}")
+    Path.touch(a_movie_directory / "readme.txt")
+
+    # Counts as a movie file
     Path.touch(_downloads_directory / DOWNLOADED_MEDIA_FILE)
+
     yield _downloads_directory
     shutil.rmtree(_downloads_directory)
 
@@ -94,6 +106,12 @@ def series_parent_directories(
 
 @pytest.fixture(scope="session")
 def movies_directory() -> Generator:
-    _movies_directory = Path(tempfile.mkdtemp())
+    _movies_directory = Path(tempfile.mkdtemp()) / MOVIES_DIRECTORY
+    Path.mkdir(_movies_directory)
     yield _movies_directory
     shutil.rmtree(_movies_directory)
+
+
+@pytest.fixture(scope="session")
+def logger() -> None:
+    setup_logger()

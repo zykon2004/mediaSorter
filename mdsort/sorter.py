@@ -33,6 +33,8 @@ class Sorter:
         ]
         self.assigned_files: list[Path] = []
         self.assigned_directories: list[Path] = []
+        self.moved_series_media_count = 0
+        self.moved_movie_media_count = 0
 
     def sort(self) -> None:
         self.assign_all_media_to_parents()
@@ -69,6 +71,7 @@ class Sorter:
                 src = file
                 dst = parent_directory.resolve_new_file_path(file)
                 self.move(src, dst)
+                self.moved_series_media_count += 1
 
     @staticmethod
     def move(src: Path, dst: Path) -> None:
@@ -77,8 +80,10 @@ class Sorter:
         logging.info("To: %s", dst)
 
     def move_unassigned_media_to_movies(self) -> None:
-        self.move_unassigned_files_to_movies()
-        self.move_unassigned_directories_to_movies()
+        for file in self.unassigned_media_files:
+            self.move_to_movies(file)
+        for directory in self.unassigned_media_directories:
+            self.move_to_movies(directory)
 
     def is_all_downloaded_media_assigned(self) -> bool:
         return (
@@ -94,17 +99,11 @@ class Sorter:
     def unassigned_media_files(self) -> set[Path]:
         return set(self.media_files) - set(self.assigned_files)
 
-    def move_unassigned_files_to_movies(self) -> None:
-        for file in self.unassigned_media_files:
-            src = file
-            dst = self.movies_directory / src
-            self.move(src, dst)
-
-    def move_unassigned_directories_to_movies(self) -> None:
-        for directory in self.unassigned_media_directories:
-            src = directory
-            dst = self.movies_directory / src
-            self.move(src, dst)
+    def move_to_movies(self, file:Path) -> None:
+        src = file
+        dst = self.movies_directory / src.name
+        self.move(src, dst)
+        self.moved_movie_media_count += 1
 
     def cleanup_empty_directories(self) -> None:
         for directory in self.assigned_directories:

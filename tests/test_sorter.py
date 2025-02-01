@@ -1,7 +1,8 @@
+import logging
 from pathlib import Path
 
 import pytest
-
+from _pytest.logging import LogCaptureFixture
 from mdsort.parent_directory import ParentDirectory
 from mdsort.sorter import Sorter
 
@@ -38,3 +39,11 @@ def test_sorter_assign_media_to_parents(sorter: Sorter):
         not sorter.is_all_downloaded_media_assigned()
         and len(sorter.unassigned_media_files) == 1
     )
+
+
+def test_sort(sorter: Sorter, caplog: LogCaptureFixture) -> None:
+    caplog.set_level(logging.INFO)
+    sorter.sort()
+    assert sorter.moved_series_media_count == 1
+    assert sorter.moved_movie_media_count == 2
+    assert caplog.text
