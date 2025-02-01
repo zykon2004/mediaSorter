@@ -49,7 +49,7 @@ def removed_year_and_imdb_suffix(
         if (
             FIRST_TV_SHOW_RELEASE_YEAR
             <= int(title_suffix)
-            <= datetime.datetime.now(tz=datetime.UTC).year
+            <= datetime.datetime.now(tz=datetime.UTC).year  # type: ignore
         ):
             formatted_title = formatted_title.removesuffix(title_suffix)
     return formatted_title.strip(separator)

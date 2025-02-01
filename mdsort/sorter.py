@@ -16,7 +16,7 @@ class Sorter:
         self,
         series_parent_directories: list[ParentDirectory],
         downloads_directory: Path,
-        movies_directory: Path | None,
+        movies_directory: Path,
     ) -> None:
         self.downloads_directory = downloads_directory
         self.movies_directory = movies_directory
@@ -38,6 +38,9 @@ class Sorter:
 
     def sort(self) -> None:
         self.assign_all_media_to_parents()
+        if not (self.assigned_files or self.assigned_directories):
+            logging.info("Nothing to assign")
+            return
         self.move_all_media_to_assigned_parents()
         self.move_unassigned_media_to_movies()
         self.cleanup_empty_directories()
@@ -72,6 +75,9 @@ class Sorter:
                 dst = parent_directory.resolve_new_file_path(file)
                 self.move(src, dst)
                 self.moved_series_media_count += 1
+        logging.info(
+            "Moved %s files to series directories", self.moved_series_media_count
+        )
 
     @staticmethod
     def move(src: Path, dst: Path) -> None:
@@ -84,6 +90,9 @@ class Sorter:
             self.move_to_movies(file)
         for directory in self.unassigned_media_directories:
             self.move_to_movies(directory)
+        logging.info(
+            "Moved %s files to movies directorie", self.moved_movie_media_count
+        )
 
     def is_all_downloaded_media_assigned(self) -> bool:
         return (
@@ -99,7 +108,7 @@ class Sorter:
     def unassigned_media_files(self) -> set[Path]:
         return set(self.media_files) - set(self.assigned_files)
 
-    def move_to_movies(self, file:Path) -> None:
+    def move_to_movies(self, file: Path) -> None:
         src = file
         dst = self.movies_directory / src.name
         self.move(src, dst)
@@ -107,5 +116,5 @@ class Sorter:
 
     def cleanup_empty_directories(self) -> None:
         for directory in self.assigned_directories:
-            logging.info("Deleted %s", directory)
             shutil.rmtree(directory)
+            logging.info("Deleted %s", directory)

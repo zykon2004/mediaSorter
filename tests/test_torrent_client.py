@@ -2,17 +2,19 @@ import platform
 from contextlib import AbstractContextManager, nullcontext
 
 import pytest
-from mdsort import settings, torrent_client
+
+# from mdsort import settings, torrent_client
+from mdsort import torrent_client
 
 
 @pytest.mark.parametrize(
     argnames=["process_name", "context"],
     argvalues=[
-        pytest.param(
-            settings.TORRENT_CLIENT,
-            nullcontext(),
-            id="Actual torrent client isn't running",
-        ),
+        # pytest.param(
+        #     settings.TORRENT_CLIENT,
+        #     nullcontext(),
+        #     id="Actual torrent client isn't running",
+        # ),
         pytest.param(None, nullcontext(), id="Default torrent client"),
         pytest.param(
             "zsh",

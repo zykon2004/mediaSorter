@@ -4,15 +4,17 @@ from collections.abc import Generator
 from pathlib import Path
 
 import pytest
-from consts import A_MOVIE_DIRECTORY, MOVIES_DIRECTORY
-from logger import setup_logger
+
+from mdsort.logger import setup_logger
 from mdsort.parent_directory import ParentDirectory, find_parent_series_directories
 
 from .consts import (
+    A_MOVIE_DIRECTORY,
     DOWNLOADED_APP_DIRECTORY,
     DOWNLOADED_MEDIA_DIRECTORY,
     DOWNLOADED_MEDIA_FILE,
     MEDIA_SUFFIX,
+    MOVIES_DIRECTORY,
     PARENT_IDENTIFIER,
     PARENT_SERIES_DIRECTORY_STR_1,
     PARENT_SERIES_DIRECTORY_STR_2,

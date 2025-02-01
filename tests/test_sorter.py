@@ -3,17 +3,18 @@ from pathlib import Path
 
 import pytest
 from _pytest.logging import LogCaptureFixture
+
 from mdsort.parent_directory import ParentDirectory
 from mdsort.sorter import Sorter
 
-from .consts import DOWNLOADED_MEDIA_DIRECTORY, DOWNLOADED_MEDIA_FILE
+from .consts import A_MOVIE_DIRECTORY, DOWNLOADED_MEDIA_DIRECTORY, DOWNLOADED_MEDIA_FILE
 
 
 @pytest.fixture(scope="function")
 def sorter(
     downloads_directory: Path,
     series_parent_directories: list[ParentDirectory],
-    movies_directory: Path | None,
+    movies_directory: Path,
 ) -> Sorter:
     return Sorter(
         downloads_directory=downloads_directory,
@@ -24,9 +25,8 @@ def sorter(
 
 def test_sorter_init(sorter: Sorter, downloads_directory: Path):
     assert sorter.media_files == [downloads_directory / DOWNLOADED_MEDIA_FILE]
-    assert sorter.media_directories == [
-        downloads_directory / DOWNLOADED_MEDIA_DIRECTORY
-    ]
+    assert downloads_directory / DOWNLOADED_MEDIA_DIRECTORY in sorter.media_directories
+    assert downloads_directory / A_MOVIE_DIRECTORY in sorter.media_directories
 
 
 def test_sorter_assign_media_to_parents(sorter: Sorter):
@@ -45,5 +45,5 @@ def test_sort(sorter: Sorter, caplog: LogCaptureFixture) -> None:
     caplog.set_level(logging.INFO)
     sorter.sort()
     assert sorter.moved_series_media_count == 1
-    assert sorter.moved_movie_media_count == 2
+    assert sorter.moved_movie_media_count == 2  # noqa: PLR2004
     assert caplog.text
