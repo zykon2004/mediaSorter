@@ -1,14 +1,13 @@
-#!/usr/bin/env -S uv run
+#!/usr/bin/env -S uv run python -m mdsort.main
 import logging
 from pathlib import Path
 
+from mdsort import logger, settings
 from mdsort.parent_directory import find_parent_series_directories
 from mdsort.sorter import Sorter
 
-from . import logger, settings
 
-
-def driver() -> None:
+def main() -> None:
     logger.setup_logger()
     logging.info("### MediaSorter Started ###")
     tv_shows_directory, downloads_directory, movies_directory = validate_directories()
@@ -41,4 +40,4 @@ def validate_directories() -> tuple[Path, Path, Path]:
 
 
 if __name__ == "__main__":
-    driver()
+    main()

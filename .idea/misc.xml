@@ -7,5 +7,5 @@
     <option name="pathToExecutable" value="$USER_HOME$/.local/bin/ruff" />
     <option name="sdkName" value="Poetry (mediaSorter)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (mediaSorter)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 virtualenv at ~/PycharmProjects/mediaSorter/.venv" project-jdk-type="Python SDK" />
 </project>

@@ -54,7 +54,7 @@ def parent_directory_1(
 ) -> ParentDirectory:
     return ParentDirectory(
         path=temp_directory / Path(PARENT_SERIES_DIRECTORY_STR_1),
-        newly_assigned_files=[],
+        newly_assigned_files=set(),
     )
 
 
@@ -64,7 +64,7 @@ def parent_directory_2(
 ) -> ParentDirectory:
     return ParentDirectory(
         path=temp_directory / Path(PARENT_SERIES_DIRECTORY_STR_2),
-        newly_assigned_files=[],
+        newly_assigned_files=set(),
     )
 
 

@@ -12,7 +12,7 @@ from mdsort.formatter import (
 @dataclass
 class ParentDirectory:
     path: Path
-    newly_assigned_files: list[Path] = field(default_factory=list)
+    newly_assigned_files: set[Path] = field(default_factory=set)
 
     @cached_property
     def comparable_name(self):

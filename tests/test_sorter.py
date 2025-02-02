@@ -24,7 +24,7 @@ def sorter(
 
 
 def test_sorter_init(sorter: Sorter, downloads_directory: Path):
-    assert sorter.media_files == [downloads_directory / DOWNLOADED_MEDIA_FILE]
+    assert sorter.media_files == {downloads_directory / DOWNLOADED_MEDIA_FILE}
     assert downloads_directory / DOWNLOADED_MEDIA_DIRECTORY in sorter.media_directories
     assert downloads_directory / A_MOVIE_DIRECTORY in sorter.media_directories
 
