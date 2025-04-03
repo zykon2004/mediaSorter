@@ -1,4 +1,4 @@
-#!/usr/bin/env -S uv run python -m mdsort.main
+#!/usr/bin/env -S /home/monkey/.local/bin/uv run python -m mdsort.main
 import logging
 from pathlib import Path
 
