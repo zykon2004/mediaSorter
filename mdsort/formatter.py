@@ -10,6 +10,7 @@ FIRST_TV_SHOW_RELEASE_YEAR = 1934
 def format_series_title_and_file_name(title: str) -> str:
     formatted_title = title.lower()
     formatted_title = create_unified_separator(formatted_title)
+    formatted_title = remove_annoying_prefix(formatted_title)
     formatted_title = remove_the_prefix(formatted_title)
     formatted_title = removed_year_and_imdb_suffix(formatted_title)
     return remove_forbidden_characters(formatted_title)
@@ -29,7 +30,21 @@ def remove_forbidden_characters(formatted_title: str) -> str:
 def remove_the_prefix(
     formatted_title: str, separator: str = settings.UNIFIED_SEPARATOR
 ) -> str:
-    annoying_prefixes = ["The", "www.UIndex.org    -   ", "www.Torrenting.com -"]
+    prefix_to_remove = ""
+    prefix_with_unified_separator = create_unified_separator("The")
+    if formatted_title.startswith(f"{prefix_with_unified_separator}{separator}"):
+        prefix_to_remove = f"{prefix_with_unified_separator}{separator}"
+    elif formatted_title.startswith(
+        f"{prefix_with_unified_separator.lower()}{separator}"
+    ):
+        prefix_to_remove = f"{prefix_with_unified_separator.lower()}{separator}"
+    return formatted_title.removeprefix(prefix_to_remove)
+
+
+def remove_annoying_prefix(
+    formatted_title: str, separator: str = settings.UNIFIED_SEPARATOR
+) -> str:
+    annoying_prefixes = ["www.UIndex.org    -   ", "www.Torrenting.com -"]
     prefix_to_remove = ""
     for prefix in annoying_prefixes:
         prefix_with_unified_separator = create_unified_separator(prefix)
