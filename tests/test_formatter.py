@@ -39,6 +39,11 @@ from mdsort import formatter
             id="series file name - lower, without `UIIndex`",
         ),
         pytest.param(
+            "www.Torrenting.com - The Day Of The Jackal S01E10 1080p NOW WEB-DL DDP5 1 Atmos H 264-FLUX",
+            "the.day.of.the.jackal.s01e10.1080p.now.web-dl.ddp5.1.atmos.h.264-flux",
+            id="series file name - lower, without `torrenting.com`",
+        ),
+        pytest.param(
             "S.W.A.T.2017.S07E10.1080p_HDTV_;;x265-MiNX[TGx]",
             "s.w.a.t.2017.s07e10.1080p.hdtv.x265-minx[tgx]",
             id="series file name - lower, forbidden, unified",
