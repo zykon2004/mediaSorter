@@ -29,12 +29,13 @@ def remove_forbidden_characters(formatted_title: str) -> str:
 def remove_the_prefix(
     formatted_title: str, separator: str = settings.UNIFIED_SEPARATOR
 ) -> str:
-    if formatted_title.startswith(f"The{separator}"):
-        prefix_to_remove = f"The{separator}"
-    elif formatted_title.startswith(f"the{separator}"):
-        prefix_to_remove = f"the{separator}"
-    else:
-        prefix_to_remove = ""
+    annoying_prefixes = ["The", "www.UIndex.org....-..."]
+    prefix_to_remove = ""
+    for prefix in annoying_prefixes:
+        if formatted_title.startswith(f"{prefix}{separator}"):
+            prefix_to_remove = f"{prefix}{separator}"
+        elif formatted_title.startswith(f"{prefix.lower()}{separator}"):
+            prefix_to_remove = f"{prefix.lower()}{separator}"
 
     return formatted_title.removeprefix(prefix_to_remove)
 

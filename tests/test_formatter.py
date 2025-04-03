@@ -34,6 +34,11 @@ from mdsort import formatter
             id="series file name - lower, without `the`",
         ),
         pytest.param(
+            "www.UIndex.org    -    Daredevil.Born.Again.S01E07.1080p.WEB.H264-SuccessfulCrab",
+            "daredevil.born.again.s01e07.1080p.web.h264-successfulcrab",
+            id="series file name - lower, without `UIIndex`",
+        ),
+        pytest.param(
             "S.W.A.T.2017.S07E10.1080p_HDTV_;;x265-MiNX[TGx]",
             "s.w.a.t.2017.s07e10.1080p.hdtv.x265-minx[tgx]",
             id="series file name - lower, forbidden, unified",
